@@ -73,3 +73,7 @@ fib(10) from module with runtime:
 fib(10) from standalone module:
 89
 ```
+
+## Passing memory into WASM
+
+See `test_sum.ts`. It isn't quite working yet...
