@@ -1,0 +1,11 @@
+{
+  "name": "deno_assemblyscript_example",
+  "scripts": {
+    "asbuild:runtime": "asc assembly/fib.ts -b assembly/fib.runtime.wasm -t assembly/fib.runtime.wat --validate --sourceMap --optimize",
+    "asbuild:standalone": "asc assembly/fib.ts -b assembly/fib.standalone.wasm -t assembly/fib.standalone.wat --runtime none --validate --sourceMap --optimize",
+    "asbuild": "npm run asbuild:runtime && npm run asbuild:standalone"
+  },
+  "devDependencies": {
+    "assemblyscript": "^0.9.2"
+  }
+}
