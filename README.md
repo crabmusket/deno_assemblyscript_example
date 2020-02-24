@@ -62,7 +62,7 @@ Hopefully that will change in a future version.
 Run the example using:
 
 ```bash
-deno --allow-read=. wasm_test.ts
+deno --allow-read=. test_fib.ts
 ```
 
 You should see:
