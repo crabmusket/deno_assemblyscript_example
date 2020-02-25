@@ -76,4 +76,27 @@ fib(10) from standalone module:
 
 ## Passing memory into WASM
 
-See `test_sum.ts`. It isn't quite working yet...
+`test_sum.ts` shows a more complex example of passing a memory region (an array of 10 `Float64`s) into the WASM module.
+The WASM code in `assembly/sum.ts` sums the values in memory given a start and end index.
+
+Run the example using:
+
+```bash
+deno --allow-read=. test_sum.ts
+```
+
+You should see:
+
+```
+sum(0, 10) from module with runtime:
+10
+sum(0, 10) from standalone module:
+10
+```
+
+An important concern is the interaction between the passed-in memory buffer and AssemblyScript's runtime code (when compiled with the runtime).
+Note that in the NPM script `asbuild:sum.runtime`, we pass the `--memoryBase 80` option.
+This reserves 80 bytes of space (enough for 10 `f64`s) _before_ the AS runtime places its static data in memory.
+
+It's not necessary to pass this option in `asbuild:sum.standalone` because AS doesn't need to use any `data` segments for the runtime's data structures.
+For more details, see https://docs.assemblyscript.org/details/memory

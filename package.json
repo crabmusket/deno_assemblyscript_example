@@ -3,7 +3,7 @@
   "scripts": {
     "asbuild:fib.runtime": "asc assembly/fib.ts -b assembly/fib.runtime.wasm -t assembly/fib.runtime.wat --validate --sourceMap --optimize",
     "asbuild:fib.standalone": "asc assembly/fib.ts -b assembly/fib.standalone.wasm -t assembly/fib.standalone.wat --runtime none --validate --sourceMap --optimize",
-    "asbuild:sum.runtime": "asc assembly/sum.ts -b assembly/sum.runtime.wasm -t assembly/sum.runtime.wat --importMemory --validate --sourceMap --optimize",
+    "asbuild:sum.runtime": "asc assembly/sum.ts -b assembly/sum.runtime.wasm -t assembly/sum.runtime.wat --importMemory --memoryBase 80 --validate --sourceMap --optimize",
     "asbuild:sum.standalone": "asc assembly/sum.ts -b assembly/sum.standalone.wasm -t assembly/sum.standalone.wat --importMemory --runtime none --validate --sourceMap --optimize",
     "asbuild": "npm run asbuild:fib.runtime && npm run asbuild:fib.standalone && npm run asbuild:sum.runtime && npm run asbuild:sum.standalone"
   },
