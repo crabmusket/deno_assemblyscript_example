@@ -1,6 +1,6 @@
 # The Future Is Now
 
-> Running WASM with Deno by compiling TypeScript using AssemblyScript
+> Running Wasm with Deno by compiling TypeScript using AssemblyScript
 
 [Deno](https://deno.land) is a new runtime for JavaScript and TypeScript, with native support for loading [WebAssembly](https://webassembly.org/) (Wasm) modules.
 This is just one of many reasons to be looking forward to Deno's v1.0 release.
@@ -52,9 +52,9 @@ Then you'll see a bunch of files created in the `assembly` folder.
 The TypeScript files that will be compiled to Wasm are placed in their own folder so they can have a custom `tsconfig.json` which loads a bunch of compatibility stuff.
 I'm not sure if this can be worked around, but it's an acceptable constraint for now!
 
-## Deno and WASM
+## Deno and Wasm
 
-There are three ways to import WASM modules into Deno JS/TS code which are used in `test_fib.ts` and `test_sum.ts`:
+There are three ways to import Wasm modules into Deno JS/TS code which are used in `test_fib.ts` and `test_sum.ts`:
 
 **Direct imports**
 
