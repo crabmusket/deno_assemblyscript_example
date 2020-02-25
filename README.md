@@ -52,14 +52,36 @@ Then you'll see a bunch of files created in the `assembly` folder.
 The TypeScript files that will be compiled to WASM are placed in their own folder so they can have a custom `tsconfig.json` which loads a bunch of compatibility stuff.
 I'm not sure if this can be worked around, but it's an acceptable constraint for now!
 
-## Running Deno
+## Deno and WASM
 
-After building your WASM modules, take a look at `wasm_test.ts` to see how to import them in Deno.
+There are three ways to import WASM modules into Deno JS/TS code which are used in `test_fib.ts` and `test_sum.ts`:
 
-I had to inline a copy of [the loader](https://github.com/AssemblyScript/assemblyscript/tree/master/lib/loader) here, because the existing source does not use ES modules.
+**Direct imports**
+
+Deno allows you to import a WASM module as an ES module:
+
+```typescript
+import { fib } from "./assembly/fib.standalone.wasm";
+```
+
+This is convenient, but won't work with more advanced features like AS's runtime, as far as I can tell.
+
+**Browser WebAssembly API**
+
+Deno implements many of the same APIs as in browsers.
+WebAssembly is just one example.
+See the `runWithStandalone` function in `test_sum.ts` for an example and [MDN](https://developer.mozilla.org/en-US/docs/WebAssembly/Using_the_JavaScript_API) for more details.
+
+**AssemblyScript loader**
+
+AS has [a loader script](https://github.com/AssemblyScript/assemblyscript/tree/master/lib/loader) which helps setting things up for you.
+
+I had to inline a copy of the loader here (in `assemblyscript_loader.js`), because the existing source does not use ES modules.
 Hopefully that will change in a future version.
 
-Run the example using:
+## Running Deno
+
+After building your WASM modules, run the example using:
 
 ```bash
 deno --allow-read=. test_fib.ts
@@ -73,6 +95,9 @@ fib(10) from module with runtime:
 fib(10) from standalone module:
 89
 ```
+
+`allow-read` is required because the script loads the `fib.runtime.wasm` file from disk.
+If you wrote a script that only used the ESM `import` method to include `fib.standalone.wasm` this permission would not be required, because imports do not require permissions.
 
 ## Passing memory into WASM
 
